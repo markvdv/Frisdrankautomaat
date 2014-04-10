@@ -1,0 +1,38 @@
+<?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
+<!doctype html>
+<html>
+    <head>
+        <title>adminloginform</title>
+        <link rel="stylesheet" href="Src/Presentation/css/styles.css"/>
+    </head>
+    <body>
+            <header>
+        <div class="container">
+            <h1>Admin Login</h1>
+        </div>
+            </header>
+        <div class="container">
+        <form class= "adminlogin" action="adminlogin.php" method="POST"><label for="for" value="">username <input name="user" type="text" value="username"> </label>
+        <label for="for" value="">username <input name="password" type="password" value="password"> </label>
+        <input name="submit" type="submit" value="submit"> 
+        </form>
+        {% if error is defined%}
+        {%if error =="usernotfound"%}
+        {%elseif error=="incorrectpassword"%}
+        {%endif%}
+        {%endif %}
+        </div>
+     <footer>
+            <div class= "container">Deze site is een van de projecten die ik heb gemaakt tijdens de VDAB opleiding PHP ontwikkelaar.</div>
+        </footer>
+    </body>
+</html>
+
+

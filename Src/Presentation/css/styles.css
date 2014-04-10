@@ -1,0 +1,117 @@
+/* RESET */
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; } 
+body{font-size:100%;}
+ul{list-style:none;}
+/* Einde RESET */
+
+
+button{
+    background:crimson;
+    color:white;
+}
+*{
+    outline:yellowgreen solid 1px;
+}
+body{
+    min-width:50em;
+    background-color: crimson;
+    font-family:arial,helvetica,sans serif;
+}
+header,footer{
+    margin-bottom:1em;
+    text-align:center;
+    background-color:white;
+      
+}
+.container{
+    max-width:32.5em;
+    margin:0 auto;
+}
+#automaat img{
+     min-width:30%;
+     float:left;
+}
+.container #automaat{
+    //margin-top:2em;
+    width:100%;
+}
+.leegholder{
+    float:left;
+    margin-top:8.5em;
+    margin-left:-0.8em;
+    
+}
+.leeg {
+    float:right;
+    background: crimson;
+    color:yellow;
+    clear:both;
+}
+a{
+    text-decoration:none;
+}
+.muntenholder {
+   max-width:32.5em;
+   margin-left:5%;
+}
+.munten a{
+    float:left;
+}
+.muntdiv{
+    overflow:hidden;
+    width:5.6em;
+    height:5.6em;
+    //outline:2px crimson solid;
+    padding-right:0.1em;
+     -webkit-box-shadow: inset 1px 1px 21px 6px rgba(220, 20, 60, 1);
+    -moz-box-shadow:    inset 1px 1px 21px 6px rgba(220, 20, 60, 1);
+    box-shadow:         inset 1px 1px 21px 6px rgba(220, 20, 60, 1);
+}
+
+.muntimg{
+    width:100%;
+}
+form
+{
+    margin-top:10em;
+    text-align:right;
+}
+#saldo{
+    min-width:456px;
+    color:white;
+    padding:2em 0;
+    display:block;
+    clear:both;
+}
+#saldo span{
+    display:inline-block;
+    width:50%;
+    padding:0;
+}
+#saldo button{
+    margin-top:-10em;
+    width:49%;
+    background-color:crimson;
+    color:white;
+    border:1px outset white;
+}
+.hidden{
+    display:none;
+}
+.adminlogin{
+    margin-top:1em;
+    margin-bottom:1em;
+}
+.adminpaneel{
+    color: white;
+}
+.adminpaneel h3{
+    margin-top:1em;
+}
+.float{
+    float:left;
+}
+
+.clearL{
+    clear:left;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Frisdrankautomaat</title>
+        <link rel="stylesheet" href="Src/Presentation/css/styles.css"/>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h1>Frisdrankautomaat</h1>
+            </div>
+        </header>
+        <div class="container">
+            <!-- drankenlijst -->
+            <div id="automaat">
+                <!-- imgmap -->
+                <img class="imgmap" alt="vendingmachine" src="img/vendbijgeknipt.png" usemap="#vendingmachine" height="456" width="456">
+                <map name="vendingmachine">
+
+                    {% for frisdrank in frisdranken %}
+                    <area name="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="
+                        {% if frisdrank.aantal==0 %}
+                          #
+                        {% else %}
+                          automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}
+                        {% endif %}
+                          " >
+                    {% endfor %}
+
+                </map>
+                <div class="leegholder">
+                    {% for frisdrank in frisdranken %}
+                    <div class="leeg">
+                        {% if frisdrank.aantal==0 %}LEEG{%else%}&nbsp;{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- geldknoppen -->
+            <div class="muntenholder">
+                {% for munt in munten %}
+                <div class="munten"> 
+                    <a href="automaatcontroller.php?action=steekgeldin&id={{munt.id}}"><div class="muntdiv"><img  class="muntimg" alt="{{munt.waarde}}" src="img/{{munt.waarde}}.png"></div></a>
+
+                </div>
+            {%endfor%}
+            </div>
+            <!-- saldolabel -->
+            <label id="saldo" for="for" value="value"><span>ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
+            </label>
+            <!-- teruggave overzicht -->
+                {% if teruggave.munten is not null %}
+                <div clas="teruggave">       
+                    {% for key,aantal in teruggave.munten %}
+                    <div class="aantal clearL">{{aantal}} X &euro;{{key/100}}<div class="float clearL muntdiv"><img class= "muntimg" src="img/{{key}}.png"></div></div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <a class=" clearL" href="automaatcontroller.php?action=geldterug"><button>geld terug</button></a>
+                <a href="adminlogin.php"><button>admintoegang</button></a>
+                </span>
+            <!-- errorrmsg -->
+            {% if error is defined %}
+                {% if error=="drankop" %}
+                    <p>de drank die je koos is op</p>
+                {%elseif error=="telaagsaldo"%}
+                    <p>niet genoeg geld ingegeven</p>
+                {%elseif error=="geenwisselgeld"%}
+                    <p>niet genoeg wisselgeld! Gepast betalen!!!</p>
+                {% endif %}
+            {% endif %}
+        </div>
+        <footer>
+            <div class= "container">Deze site is een van de projecten die ik heb gemaakt tijdens de VDAB opleiding PHP ontwikkelaar.</div>
+        </footer>
+    </body>
+</html>
+
