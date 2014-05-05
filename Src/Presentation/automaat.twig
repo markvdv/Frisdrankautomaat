@@ -1,149 +1,151 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Frisdrankautomaat</title>
-        <!--    <link rel="stylesheet" href="Src/Presentation/css/styles.css"/> -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+{% extends 'base.twig'%}
+        {%block title%}
+Frisdrankautomaat
+        {%endblock%}
+{%block styles%}
+<!--    <link rel="stylesheet" href="Src/Presentation/css/styles.css"/> -->
+<style>
+    /* RESET */
+    html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; } 
+    body{font-size:100%;}
+    ul{list-style:none;}
+    /* Einde RESET */
+    .tester{
+        color:red;
+        background-color:blue;
+    }
+    body{
+        background-color:#EA2421;
+        font-family: Calibri;
+        text-align:center;
+    }
+    header,footer{
+    }
+    footer{
+        clear:both;
+        padding:1em;
+    }
+    .container{
+        width:90%;
+        margin:0 5%;
+    }
+    .portefeuille{
+        background:black;
+        width:15em;
+        overflow:auto;
+        padding:1em;
+        border-radius:50px ;
+        margin:auto;
+    }
+    .muntenholder{
+        margin:0 auto;
+        position:relative;
+    }
+    .muntdiv{
+        width:5em;
+        position:relative;
+        margin-right:-2.5em;
+        float:left;
+        //onhover ze eruit late kome
+    }
+    .muntdiv:hover{
+        margin-top:-1em;
+        z-index:10;
+    }
+    .muntimg{
+        width:100%;
+    }
+    #automaat{
+        max-width:600px;
+        margin:0 auto;
+        width:100%;
+    }
+    #automaat div{
+        width:100%;
 
-        <style>
-            /* RESET */
-            html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; } 
-            body{font-size:100%;}
-            ul{list-style:none;}
-            /* Einde RESET */
-            .tester{
-                color:red;
-                background-color:blue;
-            }
-            body{
-                background-color:crimson;
-                font-family: Calibri;
-                text-align:center;
-            }
-            header,footer{
-                color:#A60000;
-                background:whitesmoke;
-                padding:0.1em;
-            }
-            footer{
-                clear:both;
-                padding:1em;
-            }
-            .container{
-                width:90%;
-                margin:0 5%;
-            }
+    }
+    #automaat div img{
+        border:5px inset whitesmoke;
+        min-width:600px;
+        min-height:600px;
+    }
+    .leeg{
+        float:right;
+        display:inline-block;
+    }
 
-            .muntenholder{
-                position:relative;
-                width:5em;
-                float:left;
-            }
-            .muntdiv{
-                //position:absolute;
-            }
-            .muntimg{
-                width:100%;
-            }
-            #automaat{
-                width:150%;
-            }
-            #automaat div{
-                float:left;
-                width:50%;
-            }
-            .leeg{
-                float:right;
-                display:inline-block;
-            }
-            *{
-                outline:blue solid 1px;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <div class="container">
-                <h1>Frisdrankautomaat</h1>
-            </div>
-        </header>
+    *{
+        outline:blue solid 1px;
+    }
+</style>
+{%endblock%}
+{%block header%}
+<header>
+    <div class="container">
+        <h1>Frisdrankautomaat</h1>
+    </div>
+</header>
+{%endblock header%}
+{%block content%}
+<div class="container">
 
-        <div class="container">
-            <!-- geldknoppen -->
-            <div class="muntenholder">
-                {% for munt in munten %}
-                <div class="munten"> 
-                    <a href="automaatcontroller.php"><div class="muntdiv"><img  class="muntimg" alt="{{munt.waarde}}" src="img/{{munt.waarde}}.png"></div></a>
-                    <!-- <a href="automaatcontroller.php?action=steekgeldin&id={{munt.id}}"><div class="muntdiv"><img  class="muntimg" alt="{{munt.waarde}}" src="img/{{munt.waarde}}.png"></div></a> -->
-                </div>
-            {%endfor%}
-            </div>
-            <!-- drankenlijst -->
-            <div id="automaat">
-                <div>
-                    <!-- imgmap -->
-                    <img class="imgmap" alt="vendingmachine" src="img/vendbijgeknipt.png" usemap="#vendingmachine" height="456" width="456">
-                    <map name="vendingmachine">
+    <!-- drankenlijst -->
+    <div id="automaat">
+        <div>
+            <!-- imgmap -->
+            <!-- <img class="imgmap" alt="vendingmachine" src="img/vendbijgeknipt.png" usemap="#vendingmachine" height="456" width="456"> -->
+            <img class="imgmap" alt="vendingmachine" src="img/vendingmachine.jpg" usemap="#vendingmachine" height="600" width="600">
+            <map name="vendingmachine">
                     {% for frisdrank in frisdranken %}
-                    {%if frisdrank.aantal!=0%}
-                        <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
-                    {%else%}
-                        <!-- LEEG indicator -->
-                        <span class="leeg">LEEG</span>
-                    {%endif%}
+                        {%if frisdrank.aantal!=0%}
+                <!-- aanwezig -->
+                <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
+                        {%else%}
+                <!-- LEEG indicator -->
+                <span class="leeg">LEEG</span>
+                        {%endif%}
                     {% endfor %}
-                    </map>
-                </div>
-            </div>
-            <!-- saldolabel -->
-            <label id="saldo" for="for" value="value"><span>ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
-            </label>
-            <!-- teruggave overzicht -->
+                <area shape="rect" alt="admintoegang" title="admin toegang" coords="394,93,427,133" href="adminlogin.php"/>
+            </map>
+        </div>
+    </div>
+
+    <!-- geldknoppen -->
+    <div class='portefeuille'>
+        <div class="muntenholder">
+                    {% for munt in munten %}
+            <a href="automaatcontroller.php?action=steekgeldin&id={{munt.id}}"><div class="muntdiv"><img  class="muntimg" alt="{{munt.waarde}}" src="img/{{munt.waarde}}.png"></div></a>
+                {%endfor%}
+        </div>
+    </div>
+    <!-- saldolabel -->
+    <label id="saldo" for="for" value="value"><span>ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
+    </label>
+    <!-- teruggave overzicht -->
                 {% if teruggave.munten is not null %}
-            <div clas="teruggave">       
+    <div clas="teruggave">       
                     {% for key,aantal in teruggave.munten %}
-                <div class="aantal clearL">{{aantal}} X &euro;{{key/100}}<div class="float clearL muntdiv"><img class= "muntimg" src="img/{{key}}.png"></div></div>
+        <div class="aantal clearL">{{aantal}} X &euro;{{key/100}}<div class="float clearL muntdiv"><img class= "muntimg" src="img/{{key}}.png"></div></div>
                     {% endfor %}
-            </div>
+    </div>
                 {% endif %}
-            <a class=" clearL" href="automaatcontroller.php?action=geldterug"><button>geld terug</button></a>
-            <a href="adminlogin.php"><button>admintoegang</button></a>
-        </span>
-        <!-- errorrmsg -->
+    <a class=" clearL" href="automaatcontroller.php?action=geldterug"><button>geld terug</button></a>
+    <a href="adminlogin.php"><button>admintoegang</button></a>
+    <!-- errorrmsg -->
             {% if error is defined %}
                 {% if error=="drankop" %}
-        <p>de drank die je koos is op</p>
+    <p>de drank die je koos is op</p>
                 {%elseif error=="telaagsaldo"%}
-        <p>niet genoeg geld ingegeven</p>
+    <p>niet genoeg geld ingegeven</p>
                 {%elseif error=="geenwisselgeld"%}
-        <p>niet genoeg wisselgeld! Gepast betalen!!!</p>
+    <p>niet genoeg wisselgeld! Gepast betalen!!!</p>
                 {% endif %}
             {% endif %}
-    </div>
-    <footer>
-        <div class= "container">Deze site is een van de projecten die ik heb gemaakt tijdens de VDAB opleiding PHP ontwikkelaar.</div>
-    </footer>
-    <script>
-        //$('.muntdiv').on('click', null, function(e) {
-        $('#automaat img').on('click', null, function(e) {
-            console.log(e.pageX / $(window).width());
-            console.log($(window).width());
-            // console.log(e.pageY);
-            //animatie
-            //$('.muntdiv').animate({"width":"30em"},"slow","swing",function(){alert(1);})
-
-            // $(this).animate({"width":"10em","left":"50em"},9000,"swing").animate({"width":"4em"},9000,"swing")
-            // $(this).css('position', 'absolute').animate({width: "10em", left: "200em"}, {duration:50000}, "linear")
-
-        })
-
-    </script>
-</body>
-</html>
+</div>
+        {%endblock%}
+        {%block footer%}
+<footer>
+    <div class= "container">Deze site is een van de projecten die ik heb gemaakt tijdens de VDAB opleiding PHP ontwikkelaar.</div>
+</footer>
+        {%endblock%}
 

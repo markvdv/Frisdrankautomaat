@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Frisdrankautomaat</title>
+        <!--    <link rel="stylesheet" href="Src/Presentation/css/styles.css"/> -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+        <style>
+            /* RESET */
+            html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; } 
+            body{font-size:100%;}
+            ul{list-style:none;}
+            /* Einde RESET */
+            .tester{
+                color:red;
+                background-color:blue;
+            }
+            body{
+                background-color:crimson;
+                font-family: Calibri;
+                text-align:center;
+            }
+            header,footer{
+                color:#A60000;
+                background:whitesmoke;
+                padding:0.1em;
+            }
+            footer{
+                clear:both;
+                padding:1em;
+            }
+            .container{
+                width:90%;
+                margin:0 5%;
+            }
+
+            .muntenholder{
+                position:relative;
+                width:5em;
+                float:left;
+            }
+            .muntdiv{
+                //position:absolute;
+            }
+            .muntimg{
+                width:100%;
+            }
+            #automaat{
+                width:150%;
+            }
+            #automaat div{
+                float:left;
+                width:50%;
+            }
+            .leeg{
+                float:right;
+                display:inline-block;
+            }
+            *{
+                outline:blue solid 1px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h1>Frisdrankautomaat</h1>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- geldknoppen -->
+            <div class="muntenholder">
+                {% for munt in munten %}
+                <div class="munten"> 
+                    <a href="automaatcontroller.php"><div class="muntdiv"><img  class="muntimg" alt="{{munt.waarde}}" src="img/{{munt.waarde}}.png"></div></a>
+                    <!-- <a href="automaatcontroller.php?action=steekgeldin&id={{munt.id}}"><div class="muntdiv"><img  class="muntimg" alt="{{munt.waarde}}" src="img/{{munt.waarde}}.png"></div></a> -->
+                </div>
+            {%endfor%}
+            </div>
+            <!-- drankenlijst -->
+            <div id="automaat">
+                <div>
+                    <!-- imgmap -->
+                    <img class="imgmap" alt="vendingmachine" src="img/vendbijgeknipt.png" usemap="#vendingmachine" height="456" width="456">
+                    <map name="vendingmachine">
+                    {% for frisdrank in frisdranken %}
+                    {%if frisdrank.aantal!=0%}
+                        <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
+                    {%else%}
+                        <!-- LEEG indicator -->
+                        <span class="leeg">LEEG</span>
+                    {%endif%}
+                    {% endfor %}
+                    </map>
+                </div>
+            </div>
+            <!-- saldolabel -->
+            <label id="saldo" for="for" value="value"><span>ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
+            </label>
+            <!-- teruggave overzicht -->
+                {% if teruggave.munten is not null %}
+            <div clas="teruggave">       
+                    {% for key,aantal in teruggave.munten %}
+                <div class="aantal clearL">{{aantal}} X &euro;{{key/100}}<div class="float clearL muntdiv"><img class= "muntimg" src="img/{{key}}.png"></div></div>
+                    {% endfor %}
+            </div>
+                {% endif %}
+            <a class=" clearL" href="automaatcontroller.php?action=geldterug"><button>geld terug</button></a>
+            <a href="adminlogin.php"><button>admintoegang</button></a>
+        </span>
+        <!-- errorrmsg -->
+            {% if error is defined %}
+                {% if error=="drankop" %}
+        <p>de drank die je koos is op</p>
+                {%elseif error=="telaagsaldo"%}
+        <p>niet genoeg geld ingegeven</p>
+                {%elseif error=="geenwisselgeld"%}
+        <p>niet genoeg wisselgeld! Gepast betalen!!!</p>
+                {% endif %}
+            {% endif %}
+    </div>
+    <footer>
+        <div class= "container">Deze site is een van de projecten die ik heb gemaakt tijdens de VDAB opleiding PHP ontwikkelaar.</div>
+    </footer>
+    <script>
+        //$('.muntdiv').on('click', null, function(e) {
+        $('#automaat img').on('click', null, function(e) {
+            console.log(e.pageX / $(window).width());
+            console.log($(window).width());
+            // console.log(e.pageY);
+            //animatie
+            //$('.muntdiv').animate({"width":"30em"},"slow","swing",function(){alert(1);})
+
+            // $(this).animate({"width":"10em","left":"50em"},9000,"swing").animate({"width":"4em"},9000,"swing")
+            // $(this).css('position', 'absolute').animate({width: "10em", left: "200em"}, {duration:50000}, "linear")
+
+        })
+
+    </script>
+</body>
+</html>
+
