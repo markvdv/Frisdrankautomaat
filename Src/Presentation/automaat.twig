@@ -52,7 +52,11 @@ and open the template in the editor.
                 width:100%;
             }
             #automaat{
+                width:150%;
+            }
+            #automaat div{
                 float:left;
+                width:50%;
             }
             .leeg{
                 float:right;
@@ -82,20 +86,21 @@ and open the template in the editor.
             </div>
             <!-- drankenlijst -->
             <div id="automaat">
-                <!-- imgmap -->
-                <img class="imgmap" alt="vendingmachine" src="img/vendbijgeknipt.png" usemap="#vendingmachine" height="456" width="456">
-                <map name="vendingmachine">
+                <div>
+                    <!-- imgmap -->
+                    <img class="imgmap" alt="vendingmachine" src="img/vendbijgeknipt.png" usemap="#vendingmachine" height="456" width="456">
+                    <map name="vendingmachine">
                     {% for frisdrank in frisdranken %}
                     {%if frisdrank.aantal!=0%}
-                    <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
+                        <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
                     {%else%}
-                    <!-- LEEG indicator -->
-                    <span class="leeg">LEEG</span>
+                        <!-- LEEG indicator -->
+                        <span class="leeg">LEEG</span>
                     {%endif%}
                     {% endfor %}
-                </map>
+                    </map>
+                </div>
             </div>
-
             <!-- saldolabel -->
             <label id="saldo" for="for" value="value"><span>ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
             </label>
@@ -129,14 +134,13 @@ and open the template in the editor.
         $('#automaat img').on('click', null, function(e) {
             console.log(e.pageX / $(window).width());
             console.log($(window).width());
-            console.log(e.pageX / $(window).width());
-           // console.log(e.pageY);
+            // console.log(e.pageY);
             //animatie
             //$('.muntdiv').animate({"width":"30em"},"slow","swing",function(){alert(1);})
 
             // $(this).animate({"width":"10em","left":"50em"},9000,"swing").animate({"width":"4em"},9000,"swing")
-           // $(this).css('position', 'absolute').animate({width: "10em", left: "200em"}, {duration:50000}, "linear")
-          
+            // $(this).css('position', 'absolute').animate({width: "10em", left: "200em"}, {duration:50000}, "linear")
+
         })
 
     </script>
