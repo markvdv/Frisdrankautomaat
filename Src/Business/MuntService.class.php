@@ -8,11 +8,10 @@ class MuntService {
 
     private static $wisselgeldAantal = 10;
 
-    /*     * getAll():haalt alle muntgegevens opp uit de db en maakt er objecten van
+    /*     * getMunten():haalt alle muntgegevens opp uit de db en maakt er objecten van
      * 
      * @return array van muntobjecten
      */
-
     public static function getMunten() {
         $lijst = MuntDAO::getAll();
         return $lijst;
@@ -21,7 +20,6 @@ class MuntService {
     /*     * maakGeldLadeLeeg: Haalt al het geld uit de geldlade
      * 
      */
-
     public static function maakGeldLadeLeeg() {
         MuntDAO::update(0);
     }
@@ -29,7 +27,6 @@ class MuntService {
     /*     * steekWisselGeldIn: steekt wisselgeld in de geldlade
      * 
      */
-
     public static function steekWisselGeldIn() {
         MuntDAO::update(self::$wisselgeldAantal);
     }
@@ -38,7 +35,6 @@ class MuntService {
      * 
      * @param object $munt
      */
-
     public static function haalMuntUitGeldLade($muntId, $aantal) {
         $munt = MuntDAO::getById($muntId);
         $huidigAantal = $munt->getAantal();

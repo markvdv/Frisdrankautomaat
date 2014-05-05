@@ -33,6 +33,10 @@ class SaldoDTO {
         return $this->munten;
     }
 
+    public function setMunten($munten) {
+        $this->munten = $munten;
+    }
+
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="hulpfuncties">
     /*     * steekMuntInSaldo:vermeerdert het aantal van een munt in het saldo object op basis van waarde
@@ -66,6 +70,4 @@ class SaldoDTO {
     }
 
 // </editor-fold>
-
-
 }

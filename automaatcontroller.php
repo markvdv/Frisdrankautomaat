@@ -9,8 +9,6 @@ require_once ('Doctrine/Common/ClassLoader.php');
 $classLoader = new ClassLoader("Src");
 $classLoader->register();
 $classLoader->setFileExtension(".class.php"); // </editor-fold>
-
-
 // <editor-fold defaultstate="collapsed" desc="twig templating engine">
 require_once("lib/Twig/Autoloader.php");
 Twig_Autoloader::register();
@@ -18,24 +16,12 @@ $loader = new Twig_Loader_Filesystem("Src/Presentation");
 
 $twig = new Twig_Environment($loader, array('debug' => true));
 $twig->addExtension(new Twig_Extension_Debug); // </editor-fold>
-
-
-
-
-
-
-
 // <editor-fold defaultstate="collapsed" desc="used classes">
 use Src\DTO\AutomaatDTO;
 use Src\Business\AankoopService;
 use Src\Data\MuntDAO;
 use Src\Exceptions\TeLaagSaldoException;
 use Src\Exceptions\GeenGeldException; // </editor-fold>
-
-
-
-
-
 // <editor-fold defaultstate="collapsed" desc="setup van de automaat">
 //check of de sessie is gezet en indien nodig aanmaken
 if (!isset($_SESSION['automaat'])) {
@@ -50,9 +36,6 @@ if (isset($_SESSION['teruggave'])) {
 }
 // toekenning van DTO object aan $automaat;
 $automaat = unserialize($_SESSION['automaat']); // </editor-fold>
-
-
-
 // <editor-fold defaultstate="collapsed" desc="Gethandler Action">
 //handler action get parameter 
 if (isset($_GET['action'])) {
@@ -82,15 +65,12 @@ if (isset($_GET['action'])) {
             break;
     }
 }// </editor-fold>
-
-
 // <editor-fold defaultstate="collapsed" desc="error indien nodig">
 //ERRORHANDLING
 $error = null;
 if (isset($_GET['error'])) {
     $error = $_GET['error'];
 }// </editor-fold>
-
 // <editor-fold defaultstate="collapsed" desc="View opbouw en rendering">
 //PRESENTATIEPAGINA
 $view = $twig->render('automaat.twig', array('frisdranken' => $automaat->getFrisdranken(), 'munten' => $automaat->getMunten(), 'totaalsaldo' => $automaat->getSaldo()->geefTotaalSaldo(), 'teruggave' => $teruggave, 'saldo' => $automaat->getSaldo(), 'error' => $error, 'teruggave' => $teruggave));

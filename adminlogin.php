@@ -23,6 +23,7 @@ $twig->addExtension(new Twig_Extension_Debug); // </editor-fold>
 if (isset($_GET['action']) && $_GET['action'] == 'loguit') {
     //loguit
     unset($_SESSION['adminloggedin']);
+    unset($_SESSION['automaat']);
     header('location:automaatcontroller.php');
     exit(0);
 }  else if (isset($_POST['user']) && isset($_POST['password'])) {
