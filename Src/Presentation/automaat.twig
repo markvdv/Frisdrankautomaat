@@ -31,6 +31,7 @@ Frisdrankautomaat
             </map>
         </div>
     </div>
+        <div class="canimgholder" {% if aankoop ==true %}style="display:inline-block"{%endif%}><img src="img/coke-can.jpg"> </div>
                        
     <div class="leegholder"> {%for frisdrank in frisdranken%}
     {%if frisdrank.aantal==0%}
@@ -51,21 +52,26 @@ Frisdrankautomaat
     <label  for="for" value="value"><span id="saldo">ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
     </label>
     <!-- teruggave overzicht -->
-                {% if teruggave.munten is not null %}
-    <div clas="teruggave">       
-                    {% for key,aantal in teruggave.munten %}
-        <div class="aantal clearL">{{aantal}} X &euro;{{key/100}}<div class="float clearL muntdiv"><img class= "muntimg" src="img/{{key}}.png"></div></div>
-                    {% endfor %}
-    </div>
-                {% endif %}
+      {% if teruggave.munten is not null %}
+     <table border="1" class="teruggave">
+        <tr><th colspan="3"  >
+                Teruggave</th></tr>
+                  {% for key,aantal in teruggave.munten %}
+        <tr>
+            <td>{{aantal}}</td><td> x </td><td><img class= "muntimg" src="img/{{key}}.png"></td>
+            
+        </tr>
+                {%endfor%}
+    </table>
+    {%endif%}
     <!-- errorrmsg -->
             {% if error is defined %}
                 {% if error=="drankop" %}
-    <p>de drank die je koos is op</p>
+    <p class="error">de drank die je koos is op</p>
                 {%elseif error=="telaagsaldo"%}
-    <p>niet genoeg geld ingegeven</p>
+    <p class="error">niet genoeg geld ingegeven</p>
                 {%elseif error=="geenwisselgeld"%}
-    <p>niet genoeg wisselgeld! Gepast betalen!!!</p>
+    <p class="error">niet genoeg wisselgeld! Gepast betalen!!!</p>
                 {% endif %}
             {% endif %}
         {%endblock%}

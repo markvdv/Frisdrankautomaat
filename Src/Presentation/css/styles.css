@@ -3,12 +3,9 @@
     body{font-size:100%;}
     ul{list-style:none;}
     /* Einde RESET */
-    .tester{
-        color:red;
-        background-color:blue;
-    }
     body{
-        background-color:#EA2421;
+       // background-color:#EA2421;
+        background-color:brown;
         font-family: Calibri;
         text-align:center;
     }
@@ -16,6 +13,7 @@
         margin-top:1em;
         background:white;
         color:#EA2421;
+       // color:brown;
     }
     header{
         margin-bottom: 1em;
@@ -30,11 +28,12 @@
         position:relative;
     }
     .portefeuille{
-        background:black;
+        background:#cccccc;
         width:15em;
         overflow:auto;
         padding:1em;
-        border-radius:60px ;
+        border-radius:90px ;
+        border:3px inset whitesmoke;
         margin:auto;
     }
     .muntenholder{
@@ -89,4 +88,71 @@
     #saldo{
         color:white;
         margin-top:10em;
+    }
+    .canimgholder{
+        display:none;
+        position:absolute;
+        top:58%;
+        left:49%;
+        width:2em;
+    }
+    .canimgholder img{
+        border:none;
+        width:100%;
+    }
+    a:active{
+        text-decoration:none;
+    }
+    .adminlogin{
+        color:white;
+    }
+    .error {
+        background:#A52A2A;
+        color:white;
+        outline:1px solid yellow;
+        width:10em;
+        text-align:center;
+        margin:0 auto;
+        position:absolute;
+        top:15em;
+        left:62.5%;
+    }
+    button,input[type=submit]{
+        color:white;
+        background:#B01B19
+    }
+    .adminpaneel{
+        color:white;
+    }
+    table{
+        border: 1px solid whitesmoke;
+        margin:0 auto;
+        text-align:center;
+        width:15em;
+        overflow:auto;
+        border-collapse: collapse;
+        margin-bottom:1em;
+    }
+    .adminmunten .muntdiv{
+        margin:0;
+    }
+    .adminmunten .muntdiv:hover{
+        margin:0;
+    }
+    td,th{
+        padding:1em;
+    }
+    th{
+        font-size:120%;
+    }
+    #vendingmachine{
+        outline:none;
+    }
+    area{ outline:none;
+    }
+    .teruggave{
+        color:white;
+    }
+    .teruggave img,   .adminmunten img{
+        width:50%;
     }

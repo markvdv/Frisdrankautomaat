@@ -24,6 +24,10 @@ use Src\Exceptions\TeLaagSaldoException;
 use Src\Exceptions\GeenGeldException; // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="setup van de automaat">
 //check of de sessie is gezet en indien nodig aanmaken
+$aankoop=false;
+if(isset($_SESSION['aankoop'])){
+    $aankoop=$_SESSION['aankoop'];
+}
 if (!isset($_SESSION['automaat'])) {
     $automaat = new AutomaatDTO();
     $_SESSION['automaat'] = serialize($automaat);
@@ -42,6 +46,10 @@ if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case "steekgeldin":
             $automaat->getSaldo()->steekMuntInSaldo($_GET['id']);
+            if (isset($_SESSION['aankoop'])){
+                unset($_SESSION['aankoop']);
+                $aankoop=false;
+            }
             $_SESSION['automaat'] = serialize($automaat);
             break;
         case 'geldterug':
@@ -53,6 +61,7 @@ if (isset($_GET['action'])) {
                 $aTeruggave = AankoopService::verkoopDrank($automaat->getSaldo(), $_GET['prijs'], $_GET['id'], $automaat->getMunten(), $automaat->getFrisdranken());
                 $_SESSION['teruggave'] = serialize($aTeruggave);
                 unset($_SESSION["automaat"]);
+                $_SESSION['aankoop']=true;
                 header("location:automaatcontroller.php");
                 //redirect naar controller om object in DB te steken
             } catch (TeLaagSaldoException $TLSe) {
@@ -73,7 +82,7 @@ if (isset($_GET['error'])) {
 }// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="View opbouw en rendering">
 //PRESENTATIEPAGINA
-$view = $twig->render('automaat.twig', array('frisdranken' => $automaat->getFrisdranken(), 'munten' => $automaat->getMunten(), 'totaalsaldo' => $automaat->getSaldo()->geefTotaalSaldo(), 'teruggave' => $teruggave, 'saldo' => $automaat->getSaldo(), 'error' => $error, 'teruggave' => $teruggave));
+$view = $twig->render('automaat.twig', array('frisdranken' => $automaat->getFrisdranken(), 'munten' => $automaat->getMunten(), 'totaalsaldo' => $automaat->getSaldo()->geefTotaalSaldo(), 'teruggave' => $teruggave, 'saldo' => $automaat->getSaldo(), 'error' => $error, 'teruggave' => $teruggave,'aankoop'=>$aankoop));
 echo $view; // </editor-fold>
 
 

@@ -3,7 +3,7 @@
     Admin login
 {%endblock%}
     {% block styles %}
-    <!-- <link rel="stylesheet" href="Src/Presentation/css/styles.css"/> -->
+ <link rel="stylesheet" href="Src/Presentation/css/styles.css"/>
     {%endblock%}
     {%block header%}
         <div class="container">
@@ -11,13 +11,15 @@
         </div>
     {%endblock%}
     {%block content%}
-        <form class= "adminlogin" action="adminlogin.php" method="POST"><label for="for" value="">username <input name="user" type="text" value="username"> </label>
-        <label for="for" value="">username <input name="password" type="password" value="password"> </label>
+ <form class= "adminlogin" action="adminlogin.php" method="POST"> <input name="user" type="text" placeholder="username"> 
+        <label for="for" value="">username <input name="password" type="password" placeholder="password"> </label>
         <input name="submit" type="submit" value="submit"> 
         </form>
         {% if error is defined%}
         {%if error =="usernotfound"%}
+    <p class="error" >Deze naam is niet bekend in ons systeem.</p>
         {%elseif error=="incorrectpassword"%}
+    <p class="error">Uw wachtwoord is incorrect.</p>
         {%endif%}
         {%endif %}
     {%endblock%}

@@ -1,6 +1,7 @@
 <?php
 namespace Src\Exceptions;
-class GeenGeldException extends \Exception {
+use Exception;
+class GeenGeldException extends Exception {
 }
 /* 
  * To change this license header, choose License Headers in Project Properties.

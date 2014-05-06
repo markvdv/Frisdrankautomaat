@@ -1,6 +1,7 @@
 <?php
 namespace Src\Exceptions;
-class TeLaagSaldoException extends \Exception {
+use Exception;
+class TeLaagSaldoException extends Exception {
 }
 /* 
  * To change this license header, choose License Headers in Project Properties.

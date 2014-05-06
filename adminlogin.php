@@ -1,6 +1,8 @@
 <?php
 session_start();
 use Src\Business\AdminService;
+use Src\Exceptions\incorrectPasswordException;
+use Src\Exceptions\userNotFoundException;
 // <editor-fold defaultstate="collapsed" desc="doctrine autoloader">
 use Doctrine\Common\ClassLoader;
 
