@@ -3,24 +3,31 @@
     <head>
         <title>
             {%block title%}
-                BASE
+            BASE
             {%endblock%}
         </title>
         {%block styles%}
         {%endblock%}
     </head>
     <body>
+        <header>
         {%block header%}
             HEADER
         {%endblock%}
+        </header>
+        <div class=" container">
         {%block content%}
             BaseContent
         {%endblock%}
+        </div>
         {%block scripts%}
         {%endblock%}
+        <footer>
         {%block footer%}
-            FOOTER
+      <div class= "container">Project tijdens de VDAB opleiding PHP ontwikkelaar. Gemaakt door Mark Van Der Veken in 2014
+      Gebruikt:PHP,CSS3,HTML5</div>
         {%endblock%}
+        </footer>
     </body>
 </html>
 {# empty Twig template #}

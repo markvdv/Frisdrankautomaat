@@ -3,91 +3,14 @@
 Frisdrankautomaat
         {%endblock%}
 {%block styles%}
-<!--    <link rel="stylesheet" href="Src/Presentation/css/styles.css"/> -->
-<style>
-    /* RESET */
-    html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; } 
-    body{font-size:100%;}
-    ul{list-style:none;}
-    /* Einde RESET */
-    .tester{
-        color:red;
-        background-color:blue;
-    }
-    body{
-        background-color:#EA2421;
-        font-family: Calibri;
-        text-align:center;
-    }
-    header,footer{
-    }
-    footer{
-        clear:both;
-        padding:1em;
-    }
-    .container{
-        width:90%;
-        margin:0 5%;
-    }
-    .portefeuille{
-        background:black;
-        width:15em;
-        overflow:auto;
-        padding:1em;
-        border-radius:50px ;
-        margin:auto;
-    }
-    .muntenholder{
-        margin:0 auto;
-        position:relative;
-    }
-    .muntdiv{
-        width:5em;
-        position:relative;
-        margin-right:-2.5em;
-        float:left;
-        //onhover ze eruit late kome
-    }
-    .muntdiv:hover{
-        margin-top:-1em;
-        z-index:10;
-    }
-    .muntimg{
-        width:100%;
-    }
-    #automaat{
-        max-width:600px;
-        margin:0 auto;
-        width:100%;
-    }
-    #automaat div{
-        width:100%;
-
-    }
-    #automaat div img{
-        border:5px inset whitesmoke;
-        min-width:600px;
-        min-height:600px;
-    }
-    .leeg{
-        float:right;
-        display:inline-block;
-    }
-
-    *{
-        outline:blue solid 1px;
-    }
-</style>
+  <link rel="stylesheet" href="Src/Presentation/css/styles.css"/>
 {%endblock%}
 {%block header%}
-<header>
     <div class="container">
         <h1>Frisdrankautomaat</h1>
     </div>
-</header>
 {%endblock header%}
 {%block content%}
-<div class="container">
 
     <!-- drankenlijst -->
     <div id="automaat">
@@ -99,16 +22,22 @@ Frisdrankautomaat
                     {% for frisdrank in frisdranken %}
                         {%if frisdrank.aantal!=0%}
                 <!-- aanwezig -->
-                <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
-                        {%else%}
-                <!-- LEEG indicator -->
-                <span class="leeg">LEEG</span>
+                <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" title="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
+
                         {%endif%}
                     {% endfor %}
                 <area shape="rect" alt="admintoegang" title="admin toegang" coords="394,93,427,133" href="adminlogin.php"/>
+                <area shape="circle" alt="geld terug" title="geld terug" coords="394,185,5" href="automaatcontroller.php?action=geldterug"/>
             </map>
         </div>
     </div>
+                       
+    <div class="leegholder"> {%for frisdrank in frisdranken%}
+    {%if frisdrank.aantal==0%}
+         <label class="leeg">LEEG</label> 
+{%endif %}
+{%endfor%}</div>
+                <!-- LEEG indicator -->
 
     <!-- geldknoppen -->
     <div class='portefeuille'>
@@ -119,7 +48,7 @@ Frisdrankautomaat
         </div>
     </div>
     <!-- saldolabel -->
-    <label id="saldo" for="for" value="value"><span>ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
+    <label  for="for" value="value"><span id="saldo">ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
     </label>
     <!-- teruggave overzicht -->
                 {% if teruggave.munten is not null %}
@@ -129,8 +58,6 @@ Frisdrankautomaat
                     {% endfor %}
     </div>
                 {% endif %}
-    <a class=" clearL" href="automaatcontroller.php?action=geldterug"><button>geld terug</button></a>
-    <a href="adminlogin.php"><button>admintoegang</button></a>
     <!-- errorrmsg -->
             {% if error is defined %}
                 {% if error=="drankop" %}
@@ -141,11 +68,5 @@ Frisdrankautomaat
     <p>niet genoeg wisselgeld! Gepast betalen!!!</p>
                 {% endif %}
             {% endif %}
-</div>
-        {%endblock%}
-        {%block footer%}
-<footer>
-    <div class= "container">Deze site is een van de projecten die ik heb gemaakt tijdens de VDAB opleiding PHP ontwikkelaar.</div>
-</footer>
         {%endblock%}
 
