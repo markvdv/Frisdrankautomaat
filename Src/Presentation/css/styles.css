@@ -8,6 +8,7 @@ body{
     background-color:brown;
     font-family: Calibri;
     text-align:center;
+
 }
 header,footer{
     margin-top:1em;
@@ -23,14 +24,14 @@ footer{
     padding:0.5em;
 }
 .container{
-    width:90%;
-    margin:0 5%;
-    position:relative;
+    width:620px;
+    margin:0 auto;
+    //min-width:80%;
 }
 .portefeuille{
     background:#cccccc;
     width:17em;
-    overflow:auto;
+    overflow:visible;
     padding:1em;
     border-radius:90px ;
     border:3px inset whitesmoke;
@@ -40,12 +41,17 @@ footer{
     margin:0 auto;
     position:relative;
 }
+.muntenholder label{
+    display:block;
+    clear:both;
+}
 .muntdiv{
     width:5em;
     position:relative;
     margin-right:-2em;
     float:left;
     //onhover ze eruit late kome
+    z-index:9;
 }
 .muntdiv:hover{
     margin-top:-1em;
@@ -55,7 +61,6 @@ footer{
     width:100%;
 }
 #automaat{
-    max-width:600px;
     margin:0 auto;
     width:100%;
 }
@@ -93,14 +98,23 @@ footer{
 }
 .canimgholder{
     display:none;
-    position:absolute;
-    top:58%;
-    left:49%;
+    position:relative;
+    top:-11em;
+    left:17.5em;
     width:2em;
 }
 .canimgholder img{
     border:none;
     width:100%;
+}
+#automaat label{
+    float:right;
+    margin-top:-1em;
+    z-index:30;
+    color:blue;
+}
+label{
+    color:white;
 }
 a:active{
     text-decoration:none;
@@ -108,16 +122,20 @@ a:active{
 .adminlogin{
     color:white;
 }
+*{
+    outline:red solid 1px;
+}
 .error {
     background:#A52A2A;
     color:white;
-    outline:1px solid yellow;
     width:10em;
     text-align:center;
     margin:0 auto;
-    position:absolute;
-    top:15em;
-    left:62.5%;
+    position:relative;
+    top:-35em;
+    //top:35em;
+    left:14.01em;
+    padding:0.02em;
 }
 button,input[type=submit]{
     color:white;
