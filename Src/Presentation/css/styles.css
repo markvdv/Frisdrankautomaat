@@ -65,6 +65,7 @@ footer{
     width:100%;
 }
 #automaat div{
+    min-width:600px;
     width:100%;
 }
 #automaat div img{
@@ -84,10 +85,9 @@ footer{
     clear:left;
 }
 .leegholder{
-   // position:absolute;;
-    //left:41.7em;
-    //top:14.8em;
-   // right:50em;
+    position:relative;;
+    left:30em;
+    top:-28.5em;
    width:2em;;
 }
 #saldo{
@@ -99,8 +99,8 @@ footer{
 .canimgholder{
     display:none;
     position:relative;
-    top:-11em;
-    left:17.5em;
+    top:-13.5em;
+    left:22.5%;
     width:2em;
 }
 .canimgholder img{
