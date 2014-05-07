@@ -92,9 +92,14 @@ Frisdrankautomaat
 <script>
 
     $(function() {
+        
+        $(".muntimg").each(function(){
+         //   alert($(this).offset()['left'])
+           // alert($(this).offset()['top'])
+        })
         $(".muntimg").draggable();
         $(".muntimg").on('mouseup', function() {
-
+alert($(this).offset()['left'])
           /*  for (var prop in $(this)) {
                 console.log("propnaam " + prop + "\n" + $(this)[prop]);
             }*/
@@ -104,14 +109,15 @@ Frisdrankautomaat
             for (var prop in $(this).position()) {
                // console.log("propnaam"+prop+"\n"+$(this).offset()[prop]+"relative to document");
             }
-            if ($(this).position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
-            //alert(1)    
+            //offset voor niet gezoomd position met zoom
+            
+            if ($(this).offset()['top'] > 250 && $(this).offset()['top'] < 350 && $(this).offset()['left'] > 700 && $(this).offset()['left'] < 800) {
+          //  if ($(this).position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
+            alert(1)  
             self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
             }
         });
-        $(".muntimg").on('mousedown', function() {
-            $("#ingave").append("<div>TEST</div>");
-        })
+        //HIGHLIGH for coinslot
      /*   $(window).resize(function(){
         $(this).width(3800)    
         console.log($(this));

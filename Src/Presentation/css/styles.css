@@ -36,6 +36,7 @@ footer{
     border-radius:90px ;
     border:3px inset whitesmoke;
     margin:auto;
+    clear:both;
 }
 .muntenholder{
     margin:0 auto;
