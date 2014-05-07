@@ -29,7 +29,7 @@ footer{
 }
 .portefeuille{
     background:#cccccc;
-    width:15em;
+    width:17em;
     overflow:auto;
     padding:1em;
     border-radius:90px ;
@@ -43,7 +43,7 @@ footer{
 .muntdiv{
     width:5em;
     position:relative;
-    margin-right:-2.5em;
+    margin-right:-2em;
     float:left;
     //onhover ze eruit late kome
 }
@@ -61,7 +61,6 @@ footer{
 }
 #automaat div{
     width:100%;
-
 }
 #automaat div img{
     border:5px inset whitesmoke;
@@ -88,7 +87,9 @@ footer{
 }
 #saldo{
     color:white;
-    margin-top:10em;
+    background:blue;
+    margin-top:-10em;
+    float:right;
 }
 .canimgholder{
     display:none;
