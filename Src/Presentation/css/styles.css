@@ -31,7 +31,7 @@ footer{
 }
 .portefeuille{
     background:#cccccc;
-    width:17em;
+    width:12em;
     overflow:visible;
     padding:1em;
     border-radius:90px ;
@@ -48,7 +48,7 @@ footer{
     clear:both;
 }
 .muntdiv{
-    width:5em;
+    width:4em;
     position:relative;
     margin-right:-2em;
     float:left;
