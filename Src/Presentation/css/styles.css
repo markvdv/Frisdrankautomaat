@@ -24,6 +24,7 @@ footer{
     padding:0.5em;
 }
 .container{
+    max-height:1000px;
     width:620px;
     margin:0 auto;
     //min-width:80%;

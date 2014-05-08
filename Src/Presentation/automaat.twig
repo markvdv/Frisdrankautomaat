@@ -33,17 +33,14 @@ Frisdrankautomaat
         <!-- errorrmsg -->
             {% if error is defined %}
                 {% if error=="drankop" %}
-<p class="error">de drank die je koos is op</p>
+        <p class="error">de drank die je koos is op</p>
                 {%elseif error=="telaagsaldo"%}
-<p class="error">niet genoeg geld ingegeven</p>
+        <p class="error">niet genoeg geld ingegeven</p>
                 {%elseif error=="geenwisselgeld"%}
-<p class="error">niet genoeg wisselgeld! Gepast betalen!!!</p>
+        <p class="error">niet genoeg wisselgeld! Gepast betalen!!!</p>
                 {% endif %}
             {% endif %}
-        <label>
-            small red square: admin panel<br>
-            small round white button: get ur money back<br>
-        </label>
+       
     </div>
 </div>
 <div class="canimgholder" {% if aankoop ==true %}style="display:inline-block"{%endif%}><img src="img/coke-can.jpg"> </div>
@@ -65,8 +62,7 @@ Frisdrankautomaat
     </div>
 </div>
 <!-- saldolabel -->
-<label  for="for" value="value"><span id="saldo">ingeworpen saldo: &euro; {{totaalsaldo/100}}</span>
-</label>
+<!-- <label  for="for" value="value"><span id="saldo">ingeworpen saldo: &euro; {{totaalsaldo/100}}</span></label> -->
 <!-- teruggave overzicht -->
       {% if teruggave.munten is not null %}
 <table border="1" class="teruggave">
@@ -80,7 +76,7 @@ Frisdrankautomaat
                 {%endfor%}
 </table>
     {%endif%}
-
+<div id="divA" style="width:100px;height:100px;clear:both;"></div>
         {%endblock%}
 
 {%block scripts%}
@@ -89,44 +85,62 @@ Frisdrankautomaat
 <script src="js/vendor/jquery/development-bundle/ui/jquery.ui.widget.js"></script>
 <script src="js/vendor/jquery/development-bundle/ui/jquery.ui.mouse.js"></script>
 <script src="js/vendor/jquery/development-bundle/ui/jquery.ui.draggable.js"></script>
+
+<span></span><span></span>
+<script>
+    $(window).mousemove(function(e){
+      var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+      var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
+      $("span:first").text("( e.pageX, e.pageY ) - " + pageCoords);
+      $("span:last").text("( e.clientX, e.clientY ) - " + clientCoords);
+    });
+
+</script>
 <script>
 
     $(function() {
-        
-        $(".muntimg").each(function(){
-         //   alert($(this).offset()['left'])
-           // alert($(this).offset()['top'])
+
+        $(".muntimg").each(function() {
+            //   alert($(this).offset()['left'])
+            // alert($(this).offset()['top'])
         })
         $(".muntimg").draggable();
-        $(".muntimg").on('mouseup', function() {
-alert($(this).offset()['left'])
-          /*  for (var prop in $(this)) {
-                console.log("propnaam " + prop + "\n" + $(this)[prop]);
-            }*/
-            for (var prop in $(this).position()) {
-                console.log("propnaam"+prop+"\n"+$(this).position()[prop]+"relative to parent");
-            }
-            for (var prop in $(this).position()) {
-               // console.log("propnaam"+prop+"\n"+$(this).offset()[prop]+"relative to document");
-            }
-            //offset voor niet gezoomd position met zoom
+        $(".muntimg").on('mouseover', function() {
+            alert($(this).position()['left'])
             
-            if ($(this).offset()['top'] > 250 && $(this).offset()['top'] < 350 && $(this).offset()['left'] > 700 && $(this).offset()['left'] < 800) {
-          //  if ($(this).position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
-            alert(1)  
-            self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+        })
+        $(".muntimg").on('mouseup', function() {
+            /*  for (var prop in $(this)) {
+             console.log("propnaam " + prop + "\n" + $(this)[prop]);
+             }*/
+           // for (var prop in $(this).position()) {
+            for (var prop in $(".container").position()) {
+                console.log("propnaam" + prop + "\n" + $(this).position()[prop] + "relative to parent(container)");
+            }
+           
+         for (var prop in $(this).offset()) {
+                 console.log("propnaam"+prop+"\n"+$(this).offset()[prop]+" relative to document");
+            }
+        
+        //offset voor niet gezoomd position met zoom
+
+            //if ($(this).offset()['top'] > 250 && $(this).offset()['top'] < 350 && $(this).offset()['left'] > 700 && $(this).offset()['left'] < 800) {
+                //  if ($(this).position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
+                  if ($(".container").position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
+                alert(1)
+                self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
             }
         });
         //HIGHLIGH for coinslot
-     /*   $(window).resize(function(){
-        $(this).width(3800)    
-        console.log($(this));
-            console.log($(this).width());
-            if($(document).width()>3800){
-                alert("maximum");
-                $(document).width(5000);
-            alert(1);}
-        })*/
+        /*   $(window).resize(function(){
+         $(this).width(3800)    
+         console.log($(this));
+         console.log($(this).width());
+         if($(document).width()>3800){
+         alert("maximum");
+         $(document).width(5000);
+         alert(1);}
+         })*/
 
     })</script>
 {%endblock%}
