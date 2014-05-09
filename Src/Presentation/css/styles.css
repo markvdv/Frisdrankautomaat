@@ -241,7 +241,11 @@ area{
     outline:none;
 }
 .teruggave{
+    background:black;
     color:white;
+    position:relative;
+    bottom:700px;
+    left:300px;
 }
 .teruggave img,   .adminmunten img{
     width:50%;
