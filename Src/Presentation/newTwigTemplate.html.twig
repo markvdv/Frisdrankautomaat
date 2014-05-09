@@ -1,0 +1,96 @@
+{# empty Twig template #}
+
+{%block scripts%}
+<!-- Extra labels en images voor automaat -->
+
+
+
+
+
+
+<!-- saldolabel -->
+<label  for="for" value="value"><span id="saldo">ingeworpen saldo: &euro; {{totaalsaldo/100}}</span></label>
+<!-- teruggave overzicht -->
+      {% if teruggave.munten is not null %}
+<table border="1" class="teruggave">
+    <tr><th colspan="3"  >
+            Teruggave</th></tr>
+                  {% for key,aantal in teruggave.munten %}
+    <tr>
+        <td>{{aantal}}</td><td> x </td><td><img class= "muntimg" src="img/{{key}}.png"></td>
+
+    </tr>
+                {%endfor%}
+</table>
+    {%endif%}
+
+
+
+<div id="divA" style="width:100px;height:100px;clear:both;"></div>
+<script src="js/vendor/jquery/js/jquery-1.11.1.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.mouse.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.draggable.js"></script>
+
+<span></span><span></span>
+<script>
+   /* $(window).mousemove(function(e){
+      var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+      var clientCo
+ords = "( " + e.clientX + ", " + e.clientY + " )";
+      $("span:first").text("( e.pageX, e.pageY ) - " + pageCoords);
+      $("span:last").text("( e.clientX, e.clientY ) - " + clientCoords);
+    });*/
+
+</script>
+<script>
+
+  /*  $(function() {
+
+        $(".muntimg").each(function() {
+            //   alert($(this).offset()['left'])
+            // alert($(this).offset()['top'])
+              // alert($(this).position()['left'])
+             //alert($(this).position()['top'])
+        })
+        $(".muntimg").draggable();
+        $(".muntimg").on('mouseover', function() {
+            //alert($(this).position()['left'])
+            
+        })
+        $(".muntimg").on('mouseup', function() {
+            /*  for (var prop in $(this)) {
+             console.log("propnaam " + prop + "\n" + $(this)[prop]);
+             }*/
+           // for (var prop in $(this).position()) {
+    /*        for (var prop in $(".container").position()) {
+                console.log("propnaam" + prop + "\n" + $(this).position()[prop] + "relative to parent(container)");
+            }
+           
+         for (var prop in $(this).offset()) {
+                 console.log("propnaam"+prop+"\n"+$(this).offset()[prop]+" relative to document");
+            }
+        
+        //offset voor niet gezoomd position met zoom
+
+            //if ($(this).offset()['top'] > 250 && $(this).offset()['top'] < 350 && $(this).offset()['left'] > 700 && $(this).offset()['left'] < 800) {
+                //  if ($(this).position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
+          /*        if ($(".container").position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
+               // alert(1)
+                self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+            }
+        });
+        //HIGHLIGH for coinslot
+        /*   $(window).resize(function(){
+         $(this).width(3800)    
+         console.log($(this));
+         console.log($(this).width());
+         if($(document).width()>3800){
+         alert("maximum");
+         $(document).width(5000);
+         alert(1);}
+         })
+
+    })*/</script>
+{%endblock%}

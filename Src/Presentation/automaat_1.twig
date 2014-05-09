@@ -1,0 +1,149 @@
+{% extends 'base.twig'%}
+        {%block title%}
+Frisdrankautomaat
+        {%endblock%}
+{%block styles%}
+<link rel="stylesheet" href="Src/Presentation/css/styles.css"/>
+{%endblock%}
+{%block header%}
+<div class="container">
+    <h1>Frisdrankautomaat</h1>
+</div>
+{%endblock header%}
+{%block content%}
+
+<!-- drankenlijst -->
+<div id="automaat">
+    <div>
+        <!-- imgmap -->
+        <img class="imgmap" alt="vendingmachine" src="img/vendingmachine.jpg" usemap="#vendingmachine" height="600" width="600">
+        <map name="vendingmachine">
+                    {% for frisdrank in frisdranken %}
+                        {%if frisdrank.aantal!=0%}
+            <!-- aanwezig -->
+            <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" title="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
+
+                        {%endif%}
+                    {% endfor %}
+            <area shape="rect" alt="admintoegang" title="admin toegang" coords="394,93,427,133" href="adminlogin.php"/>
+            <area shape="circle" alt="geld terug" title="geld terug" coords="394,185,5" href="automaatcontroller.php?action=geldterug"/>
+            <area shape="rect" id="ingave" alt="steek hier je geld" title="steek hier je geld" coords="410,170,430,200" href=""/>
+        </map>
+        <!-- errorrmsg -->
+            {% if error is defined %}
+                {% if error=="drankop" %}
+        <p class="error">de drank die je koos is op</p>
+                {%elseif error=="telaagsaldo"%}
+        <p class="error">niet genoeg geld ingegeven</p>
+                {%elseif error=="geenwisselgeld"%}
+        <p class="error">niet genoeg wisselgeld! Gepast betalen!!!</p>
+                {% endif %}
+            {% endif %}
+       
+    </div>
+</div>
+<div class="canimgholder" {% if aankoop ==true %}style="display:inline-block"{%endif%}><img src="img/coke-can.jpg"> </div>
+
+<!-- LEEG indicator -->
+<div class="leegholder"> {%for frisdrank in frisdranken%}
+    {%if frisdrank.aantal==0%}
+    <label class="leeg">LEEG</label> 
+    {%else%}
+    <div >&nbsp;</div> 
+{%endif %}
+{%endfor%}</div>
+
+<!-- geldknoppen -->
+<div class='portefeuille'>
+    <div class="muntenholder">
+                    {% for munt in munten %}
+        <a href="automaatcontroller.php?action=steekgeldin&id={{munt.id}}"><div class="muntdiv"><img  id ="{{munt.id}}" class="muntimg" alt="{{munt.waarde}}" src="img/{{munt.waarde}}.png"></div></a>
+                {%endfor%}
+        <label>Click a coin or drag it to the coinslot</label>
+    </div>
+</div>
+<!-- saldolabel -->
+<label  for="for" value="value"><span id="saldo">ingeworpen saldo: &euro; {{totaalsaldo/100}}</span></label>
+<!-- teruggave overzicht -->
+      {% if teruggave.munten is not null %}
+<table border="1" class="teruggave">
+    <tr><th colspan="3"  >
+            Teruggave</th></tr>
+                  {% for key,aantal in teruggave.munten %}
+    <tr>
+        <td>{{aantal}}</td><td> x </td><td><img class= "muntimg" src="img/{{key}}.png"></td>
+
+    </tr>
+                {%endfor%}
+</table>
+    {%endif%}
+<div id="divA" style="width:100px;height:100px;clear:both;"></div>
+        {%endblock%}
+
+{%block scripts%}
+<script src="js/vendor/jquery/js/jquery-1.11.1.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.mouse.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.draggable.js"></script>
+
+<span></span><span></span>
+<script>
+   /* $(window).mousemove(function(e){
+      var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+      var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
+      $("span:first").text("( e.pageX, e.pageY ) - " + pageCoords);
+      $("span:last").text("( e.clientX, e.clientY ) - " + clientCoords);
+    });*/
+
+</script>
+<script>
+
+    $(function() {
+
+        $(".muntimg").each(function() {
+            //   alert($(this).offset()['left'])
+            // alert($(this).offset()['top'])
+              // alert($(this).position()['left'])
+             //alert($(this).position()['top'])
+        })
+        $(".muntimg").draggable();
+        $(".muntimg").on('mouseover', function() {
+            //alert($(this).position()['left'])
+            
+        })
+        $(".muntimg").on('mouseup', function() {
+            /*  for (var prop in $(this)) {
+             console.log("propnaam " + prop + "\n" + $(this)[prop]);
+             }*/
+           // for (var prop in $(this).position()) {
+            for (var prop in $(".container").position()) {
+                console.log("propnaam" + prop + "\n" + $(this).position()[prop] + "relative to parent(container)");
+            }
+           
+         for (var prop in $(this).offset()) {
+                 console.log("propnaam"+prop+"\n"+$(this).offset()[prop]+" relative to document");
+            }
+        
+        //offset voor niet gezoomd position met zoom
+
+            //if ($(this).offset()['top'] > 250 && $(this).offset()['top'] < 350 && $(this).offset()['left'] > 700 && $(this).offset()['left'] < 800) {
+                //  if ($(this).position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
+                  if ($(".container").position()['top'] > -500 && $(this).position()['top'] < -450 && $(this).position()['left'] > 10 && $(this).position()['left'] < 40) {
+               // alert(1)
+                self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+            }
+        });
+        //HIGHLIGH for coinslot
+        /*   $(window).resize(function(){
+         $(this).width(3800)    
+         console.log($(this));
+         console.log($(this).width());
+         if($(document).width()>3800){
+         alert("maximum");
+         $(document).width(5000);
+         alert(1);}
+         })*/
+
+    })</script>
+{%endblock%}

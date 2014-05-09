@@ -3,18 +3,56 @@ html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, 
 body{font-size:100%;}
 ul{list-style:none;}
 /* Einde RESET */
+/* KLEUR<editor-fold defaultstate="collapsed" desc="KLEUR">*/
 body{
-    // background-color:#EA2421;
     background-color:brown;
+}
+header,footer{
+    background:white;
+    color:#EA2421;
+}
+.portefeuille{
+    background:#cccccc;
+}
+#automaat div img{
+    background:#cccccc;
+}
+.leeg{
+    background:crimson;
+}
+#saldo{
+    color:#EA2421;
+    background:#333333;
+}
+.error {
+    background:#A52A2A;
+    color:white;
+}
+/* </editor-fold>*/
+
+
+
+/* TYPOGRAFIE<editor-fold defaultstate="collapsed" desc="TYPOGRAFIE">*/
+@font-face{
+    font-family:Digital;
+        src:url(digitalfont/DS-DIGI.ttf);
+}
+body{
     font-family: Calibri;
     text-align:center;
 
 }
+#saldo{
+    font-family:Digital;
+    text-align:right;
+}
+/* </editor-fold>*/
+
+
+
+/* BOX_ELEMENT<editor-fold defaultstate="collapsed" desc="BOX_ELEMENT">*/
 header,footer{
     margin-top:1em;
-    background:white;
-    color:#EA2421;
-    // color:brown;
 }
 header{
     margin-bottom: 1em;
@@ -24,20 +62,37 @@ footer{
     padding:0.5em;
 }
 .container{
-    max-height:1000px;
-    width:620px;
+    width:600px;
     margin:0 auto;
-    //min-width:80%;
 }
+/*automaat*/
+#automaat{
+    margin:0 auto;
+    width:100%;
+    float:left;
+}
+#automaat div{
+    width:100%;
+}
+#automaat div img{
+    border:5px inset whitesmoke;
+}
+
+/*muntenholder*/
 .portefeuille{
-    background:#cccccc;
+    position:relative;
+    bottom:75px;
     width:12em;
     overflow:visible;
     padding:1em;
-    border-radius:90px ;
+    border-radius:30px ;
     border:3px inset whitesmoke;
-    margin:auto;
+    margin:0 auto;
     clear:both;
+
+    background:url(../../../img/wallet.png) no-repeat 0 6px;;
+    background-size:105%;
+        background-color:whitesmoke;
 }
 .muntenholder{
     margin:0 auto;
@@ -62,47 +117,74 @@ footer{
 .muntimg{
     width:100%;
 }
-#automaat{
-    margin:0 auto;
-    width:100%;
-}
-#automaat div{
-    min-width:600px;
-    width:100%;
-}
-#automaat div img{
-    border:5px inset whitesmoke;
-    min-width:600px;
-    min-height:600px;
-}
+
+/*leeg indicator*/
 .leeg{
     float:left;
     display:inline-block;
-    background:yellow;
-    width:100%;
     height:10px;
-    font-size:60%;
     text-align: center;
+    font-size:0.5em;;
     margin-bottom:2px;
+    // border-radius:90px;
+    width:100%;;
     clear:left;
+    overflow:hidden;
+}
+.leeg:empty{
+    visibility:hidden
 }
 .leegholder{
     position:relative;;
-    left:30em;
-    top:-28.5em;
-   width:2em;;
+    left:399px;
+    bottom:377px;
+    width:26px;
 }
+
+/*Saldo weergave*/
 #saldo{
-    color:white;
-    background:blue;
-    margin-top:-10em;
-    float:right;
-}
-.canimgholder{
-    display:none;
     position:relative;
-    top:-13.5em;
-    left:22.5%;
+    bottom:408px;
+    height:20px;
+    left:103px;
+    width:35px;
+    padding:2px;
+    display:inline-block;
+}
+/* </editor-fold>*/
+
+
+/*errormessages*/
+.error {
+    font-size:70%;
+    width:160px;
+    float:left;
+    text-align:center;
+    margin:0 auto;
+    position:relative;
+    /*in pixels voor positionering*/
+    bottom:624px;
+    left:444px;
+    padding:0.03em 0;
+}
+
+
+/* HULPKLASSEN<editor-fold defaultstate="collapsed" desc="HULPKLASSEN">*/
+/* </editor-fold>*/
+
+
+
+
+
+
+
+
+
+
+
+.canimgholder{
+    position:relative;
+    bottom:925px;
     width:2em;
 }
 .canimgholder img{
@@ -112,7 +194,6 @@ footer{
 #automaat label{
     float:right;
     margin-top:-1em;
-    z-index:30;
     color:blue;
 }
 label{
@@ -124,21 +205,7 @@ a:active{
 .adminlogin{
     color:white;
 }
-*{
-    outline:red solid 1px;
-}
-.error {
-    background:#A52A2A;
-    color:white;
-    width:10em;
-    text-align:center;
-    margin:0 auto;
-    position:relative;
-    top:-35em;
-    //top:35em;
-    left:14.01em;
-    padding:0.02em;
-}
+
 button,input[type=submit]{
     color:white;
     background:#B01B19
@@ -170,7 +237,8 @@ th{
 #vendingmachine{
     outline:none;
 }
-area{ outline:none;
+area{ 
+    outline:none;
 }
 .teruggave{
     color:white;
