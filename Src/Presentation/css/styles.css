@@ -35,7 +35,7 @@ header,footer{
 /* TYPOGRAFIE<editor-fold defaultstate="collapsed" desc="TYPOGRAFIE">*/
 @font-face{
     font-family:Digital;
-        src:url(digitalfont/DS-DIGI.ttf);
+    src:url(digitalfont/DS-DIGI.ttf);
 }
 body{
     font-family: Calibri;
@@ -89,10 +89,9 @@ footer{
     border:3px inset whitesmoke;
     margin:0 auto;
     clear:both;
-
     background:url(../../../img/wallet.png) no-repeat 0 6px;;
     background-size:105%;
-        background-color:whitesmoke;
+    background-color:whitesmoke;
 }
 .muntenholder{
     margin:0 auto;
@@ -145,11 +144,12 @@ footer{
 #saldo{
     position:relative;
     bottom:408px;
-    height:20px;
+    height:15px;
     left:103px;
     width:35px;
     padding:2px;
     display:inline-block;
+    border:3px inset #333333;
 }
 /* </editor-fold>*/
 
