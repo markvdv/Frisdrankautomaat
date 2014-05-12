@@ -18,7 +18,7 @@ Frisdrankautomaat
                     {% for frisdrank in frisdranken %}
                         {%if frisdrank.aantal!=0%}
             <!-- aanwezig -->
-            <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" title="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}" >
+            <area id="{{frisdrank.id}}" name="{{frisdrank.type}}" title="{{frisdrank.type}}" shape="rect" coords="{{frisdrank.coords}}" href="automaatcontroller.php?action=kopen&id={{frisdrank.id}}&prijs={{frisdrank.prijs}}&type={{frisdrank.type}}" >
 
                         {%endif%}
                     {% endfor %}
@@ -26,8 +26,8 @@ Frisdrankautomaat
             <area shape="circle" alt="geld terug" title="geld terug" coords="394,185,5" href="automaatcontroller.php?action=geldterug"/>
             <area shape="rect" id="ingave" alt="steek hier je geld" title="steek hier je geld" coords="410,170,430,200" href=""/>
         </map>
-      
-       
+
+
     </div>
 </div>
 
@@ -43,19 +43,6 @@ Frisdrankautomaat
 
 <!-- saldolabel -->
 <label  id="saldo">  {{(totaalsaldo/100)|number_format(2, '.', ',')}}</label>
-<!-- teruggave overzicht -->
-      {% if teruggave.munten is not null %}
-<table border="1" class="teruggave">
-    <tr><th colspan="3"  >
-            Teruggave</th></tr>
-                  {% for key,aantal in teruggave.munten %}
-    <tr>
-        <td>{{aantal}}</td><td> x </td><td><img class= "muntimg" src="img/{{key}}.png"></td>
-
-    </tr>
-                {%endfor%}
-</table>
-    {%endif%}
 
 <!-- geldknoppen -->
 <div class='portefeuille'>
@@ -68,18 +55,101 @@ Frisdrankautomaat
 </div>
 
 
-  <!-- errorrmsg -->
+<!-- errorrmsg -->
             {% if error is defined %}
                 {% if error=="drankop" %}
-        <p class="error">de drank die je koos is op</p>
+<p class="error">de drank die je koos is op</p>
                 {%elseif error=="telaagsaldo"%}
-        <p class="error">niet genoeg geld ingegeven</p>
+<p class="error">niet genoeg geld ingegeven</p>
                 {%elseif error=="geenwisselgeld"%}
-        <p class="error">niet genoeg wisselgeld! Gepast betalen!!!</p>
+<p class="error">niet genoeg wisselgeld! Gepast betalen!!!</p>
                 {% endif %}
             {% endif %}
-        {% if aankoop ==true %}
-<div class="canimgholder" style="display:inline-block"><img src="img/coke-can.jpg"> </div>
+        {% if gekozendrank is not null %}
+<div id="canimgholder" class="canimgholder" style="display:inline-block"><img src="img/{{gekozendrank}}.png"> </div>
+<!-- teruggave overzicht -->
+      {% if teruggave is not null %}
+<table border="1" class="teruggave">
+    <tr><th colspan="3"  >
+            Teruggave</th></tr>
+                  {% for key,aantal in teruggave %}
+    <tr>
+        <td><pre> {{aantal}} x </pre></td><td><img class= "muntimg" src="img/{{key}}.png"></td>
+
+    </tr>
+                {%endfor%}
+</table>
+    {%endif%}
+
 {%endif%}
         {%endblock%}
 
+{% block scripts%}
+<script src="js/vendor/jquery/js/jquery-1.11.1.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.mouse.js"></script>
+<script src="js/vendor/jquery/development-bundle/ui/jquery.ui.draggable.js"></script>
+<script>
+    $(function() {
+        var bool = false;
+        var eCan = document.getElementById('canimgholder');
+        if (eCan) {
+            eCan.onclick = function() {
+                location.href = "automaatcontroller.php";
+            }
+        }
+
+        $(".muntimg").draggable({
+            containment: "body",
+            revert: function() {
+                //of moet terugkeren naar startpositie of niet  
+            },
+        });
+        $(".muntimg").mouseup(
+                function() {
+                    console.log($(this).attr('id'));
+                    console.log($(this).position()['left'])
+                    if ($(this).position()['top'] > -490 && $(this).position()['top'] < -450) {
+                        switch ($(this).attr('id')) {
+                            case '10':
+                                if ($(this).position()['left'] > 170 && $(this).position()['left'] < 210) {
+                                 self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+                                }
+                                break;
+                            case "20":
+                                if ($(this).position()['left'] > 140 && $(this).position()['left'] < 180) {
+                               self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+                                }
+                                break;
+                            case "50":
+                                 if ($(this).position()['left'] > 105 && $(this).position()['left'] < 145) {
+                                 self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+                                 }
+                                break;
+                            case "100":
+                                if ($(this).position()['left'] > 70 && $(this).position()['left'] < 110) {
+                                 self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+                                }
+                                break;
+                            case "200":
+                                if ($(this).position()['left'] > 40 && $(this).position()['left'] < 80) {
+                                self.location.href = "automaatcontroller.php?action=steekgeldin&id=" + $(this).attr('id');
+                                }
+                                break;
+
+                        }
+                        // alert(1)
+                    }
+                }
+        );
+
+        /*  $(".muntimg").mousedown(function() {
+         $('#ingave').mouseenter(function() {
+         console.log("over");
+         });
+         console.log("end mousedown");
+         });*/
+    });
+</script>
+{%endblock%}

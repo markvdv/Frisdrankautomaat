@@ -17,7 +17,7 @@ class AankoopService {
     public function verkoopDrank($oSaldo, $iPrijs, $iDrankid) {
         //saldo munten in geldlade steken
         foreach ($oSaldo->getMunten() as $muntWaarde => $muntAantal) {
-            if ($muntAantal != 0) {
+            if ($muntAantal > 0) {
                 MuntService::steekMuntInGeldLade($muntWaarde, $muntAantal);
             }
         }
@@ -33,28 +33,22 @@ class AankoopService {
         }
 
         //berekenen array van teruggave
-        $aTeruggave = array(10 => 0, 20 => 0, 50 => 0, 100 => 0, 200 => 0);
-        $munten = MuntService::getMunten();
-        $revMunten = array_reverse($munten);
-        foreach ($revMunten as $munt) {
-            if ($teruggaveBedrag > $munt->getWaarde()) {
-                while ($teruggaveBedrag >= $munt->getWaarde()&&$munt->getAantal()>0) {
-                    $teruggaveBedrag-=$munt->getWaarde();
-                    $aTeruggave[$munt->getWaarde()]+=1;
-                    $munt->setAantal($munt->getAantal()-1);
-                }
+        $aTeruggave = array(200 => 0, 100 => 0, 50 => 0, 20 => 0, 10 => 0);
+        foreach ($aTeruggave as $key => $value) {
+            while ($teruggaveBedrag >= $key) {
+                $teruggaveBedrag-=$key;
+                $aTeruggave[$key]+=1;
             }
         }
         if ($teruggaveBedrag > 0) {
             throw new GeenGeldException();
         } else {
-            $oSaldo->setMunten($aTeruggave);
-            foreach ($oSaldo->getMunten() as $key => $value) {
+            foreach ($aTeruggave as $key => $value) {
                 MuntService::haalMuntUitGeldLade($key, $value);
             }
         }
         FrisdrankService::geefFrisdrank($iDrankid);
-        return $oSaldo;
+        return $aTeruggave;
     }
 
 }

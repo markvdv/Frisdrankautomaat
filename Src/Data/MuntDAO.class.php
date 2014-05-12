@@ -36,7 +36,8 @@ class MuntDAO extends DAO {
             $args = array();
             $args[] = $muntAantal;
         }
-        parent::execPreppedStmt($sql, $args);
+        $stmt=parent::execPreppedStmt($sql, $args);
+        return $stmt;
     }
 
     public static function getById($muntId) {

@@ -11,8 +11,9 @@
         </div>
     {%endblock%}
     {%block content%}
- <form class= "adminlogin" action="adminlogin.php" method="POST"> <input name="user" type="text" placeholder="username"> 
-        <label for="for" value="">username <input name="password" type="password" placeholder="password"> </label>
+ <form class= "adminlogin" action="adminlogin.php" method="POST"> 
+       <label for="user" >username <input id="username" name="user" type="text" placeholder="username"> </label>
+       <label for="password">password</label> <input name="password" type="password" placeholder="password"> 
         <input name="submit" type="submit" value="submit"> 
         </form>
         {% if error is defined%}
@@ -23,10 +24,14 @@
         {%endif%}
         {%endif %}
     {%endblock%}
-    {%block footer%}
-     <footer>
-            <div class= "container">Deze site is een van de projecten die ik heb gemaakt tijdens de VDAB opleiding PHP ontwikkelaar.</div>
-        </footer>
-    {%endblock%}
+    {%block scripts%}
+    <script>
+        window.onload=function(){
+          //eerste input field referentie
+          var eUsername= document.getElementById('username');
+          eUsername.focus();
+        };
+    </script>
+    {% endblock %}
 
 

@@ -49,9 +49,8 @@ class MuntService {
 
     public static function steekMuntInGeldLade($muntId, $aantal) {
         $munt = MuntDAO::getById($muntId);
-        $huidigAantal = $munt->getAantal();
-        $nieuwAantal = $huidigAantal + $aantal;
-        MuntDAO::update($nieuwAantal, $muntId);
+       $munt->setAantal($munt->getAantal()+1);
+        MuntDAO::update($munt->getAantal(), $muntId);
     }
 
     public static function berekenTotaalInGeldLade() {

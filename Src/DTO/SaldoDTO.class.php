@@ -68,6 +68,8 @@ class SaldoDTO {
         }
         return $totaalSaldo;
     }
-
+    public function leegSaldo() {
+        $this->__construct();
+    }
 // </editor-fold>
 }

@@ -21,7 +21,6 @@ class AutomaatDTO {
     public function __construct() {
         $this->munten = MuntService::getMunten();
         $this->frisdranken = FrisdrankService::haalFrisdrankenOp();
-        $this->saldo = new SaldoDTO();
     }
 
 // </editor-fold>
@@ -40,12 +39,6 @@ class AutomaatDTO {
 
     public function getMunten() {
         return $this->munten;
-    }
-    public function getSaldo() {
-        return $this->saldo;
-    }
-    public function maakSaldoLeeg() {
-        $this->saldo=new SaldoDTO();
     }
 // </editor-fold>
 

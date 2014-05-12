@@ -3,6 +3,7 @@
 session_start();
 
 // <editor-fold defaultstate="collapsed" desc="doctrine autoloader">
+
 use Doctrine\Common\ClassLoader;
 
 require_once ('Doctrine/Common/ClassLoader.php');
@@ -17,72 +18,70 @@ $loader = new Twig_Loader_Filesystem("Src/Presentation");
 $twig = new Twig_Environment($loader, array('debug' => true));
 $twig->addExtension(new Twig_Extension_Debug); // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="used classes">
-use Src\DTO\AutomaatDTO;
+
 use Src\Business\AankoopService;
-use Src\Data\MuntDAO;
+use Src\DTO\AutomaatDTO;
+use Src\DTO\SaldoDTO;
+use Src\Exceptions\GeenGeldException;
 use Src\Exceptions\TeLaagSaldoException;
-use Src\Exceptions\GeenGeldException; // </editor-fold>
+
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="setup van de automaat">
-//check of de sessie is gezet en indien nodig aanmaken
-$aankoop=false;
-if(isset($_SESSION['aankoop'])){
-    $aankoop=$_SESSION['aankoop'];
+if (!isset($_SESSION['automaat']) || !isset($_SESSION['saldo'])) {
+    $_SESSION['automaat'] = serialize(new AutomaatDTO());
+    $_SESSION['saldo'] = serialize(new SaldoDTO());
 }
-if (!isset($_SESSION['automaat'])) {
-    $automaat = new AutomaatDTO();
-    $_SESSION['automaat'] = serialize($automaat);
-}
-//check voor teruggave
-$teruggave = null;
-if (isset($_SESSION['teruggave'])) {
-    $teruggave = unserialize($_SESSION['teruggave']);
-    unset($_SESSION['teruggave']);
-}
+
 // toekenning van DTO object aan $automaat;
-$automaat = unserialize($_SESSION['automaat']); // </editor-fold>
+$automaat = unserialize($_SESSION['automaat']);
+$saldo = unserialize($_SESSION['saldo']);
+$error = null;
+$aTeruggave = null;
+if (isset($_SESSION['teruggave'])) {
+    $aTeruggave = unserialize($_SESSION['teruggave']);
+    unset($_SESSION['teruggave']);
+    unset($_SESSION['saldo']);
+}
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="Gethandler Action">
 //handler action get parameter 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case "steekgeldin":
-            $automaat->getSaldo()->steekMuntInSaldo($_GET['id']);
-            if (isset($_SESSION['aankoop'])){
-                unset($_SESSION['aankoop']);
-                $aankoop=false;
-            }
-            $_SESSION['automaat'] = serialize($automaat);
+            $saldo->steekMuntInSaldo($_GET['id']);
+            $_SESSION['saldo'] = serialize($saldo);
             break;
         case 'geldterug':
-            $automaat->maakSaldoLeeg();
-            $_SESSION['automaat'] = serialize($automaat);
+            $saldo->leegSaldo();
+            $_SESSION['saldo'] = serialize($saldo);
             break;
         case 'kopen':
             try {
-                $aTeruggave = AankoopService::verkoopDrank($automaat->getSaldo(), $_GET['prijs'], $_GET['id'], $automaat->getMunten(), $automaat->getFrisdranken());
-                $_SESSION['teruggave'] = serialize($aTeruggave);
-                unset($_SESSION["automaat"]);
-                $_SESSION['aankoop']=true;
-                header("location:automaatcontroller.php");
+                $aTeruggave = AankoopService::verkoopDrank($saldo, $_GET['prijs'], $_GET['id']);
+                $saldo->leegSaldo();
+                $_SESSION['saldo']=serialize($saldo);
+                $automaat= new AutomaatDTO();
+                $_SESSION['automaat']=serialize($automaat);
+                $gekozenDrank=$_GET['type'];
+                $view = $twig->render('automaat.twig', array('frisdranken' => $automaat->getFrisdranken(), 'munten' => $automaat->getMunten(), 'totaalsaldo' => $saldo->geefTotaalSaldo(), 'teruggave' => $aTeruggave, 'error' => $error, 'gekozendrank'=>$gekozenDrank));
                 //redirect naar controller om object in DB te steken
             } catch (TeLaagSaldoException $TLSe) {
-                header('location:automaatcontroller.php?error=telaagsaldo');
-                exit(0);
+                $error = 'telaagsaldo';
             } catch (GeenGeldException $GGe) {
-                header('location:automaatcontroller.php?error=geenwisselgeld');
-                exit(0);
+                $error = 'geenwisselgeld';
             }
             break;
     }
-}// </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="error indien nodig">
-//ERRORHANDLING
-$error = null;
-if (isset($_GET['error'])) {
-    $error = $_GET['error'];
-}// </editor-fold>
+}
+else{
+    $aankoop=false;
+}
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="View opbouw en rendering">
 //PRESENTATIEPAGINA
-$view = $twig->render('automaat.twig', array('frisdranken' => $automaat->getFrisdranken(), 'munten' => $automaat->getMunten(), 'totaalsaldo' => $automaat->getSaldo()->geefTotaalSaldo(), 'teruggave' => $teruggave, 'saldo' => $automaat->getSaldo(), 'error' => $error, 'teruggave' => $teruggave,'aankoop'=>$aankoop));
+if (!isset($view)) {
+    $view = $twig->render('automaat.twig', array('frisdranken' => $automaat->getFrisdranken(), 'munten' => $automaat->getMunten(), 'totaalsaldo' => $saldo->geefTotaalSaldo(), 'error' => $error));
+}
 echo $view; // </editor-fold>
 
 
