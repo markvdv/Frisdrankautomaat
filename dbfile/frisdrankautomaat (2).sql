@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
 -- Machine: 127.0.0.1
--- Genereertijd: 06 mei 2014 om 11:47
--- Serverversie: 5.6.14
--- PHP-versie: 5.5.6
+-- Gegenereerd op: 28 mei 2014 om 17:04
+-- Serverversie: 5.6.16
+-- PHP-versie: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `frisdrank` (
   `prijs` int(3) NOT NULL DEFAULT '60',
   `coords` tinytext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `frisdrank`
@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS `frisdrank` (
 
 INSERT INTO `frisdrank` (`id`, `type`, `aantal`, `prijs`, `coords`) VALUES
 (1, 'Coca Cola1', 18, 60, '395,230,420,240'),
-(2, 'Coca Cola2', 15, 60, '395,242,420,252'),
-(3, 'Cola Light', 19, 60, '395,254,420,264'),
+(2, 'Coca Cola2', 20, 60, '395,242,420,252'),
+(3, 'Cola Light', 20, 60, '395,254,420,264'),
 (4, 'Sprite', 20, 60, '395,266,420,276'),
 (5, 'Fanta Orange', 20, 80, '395,278,420,288'),
 (6, 'Fanta Green', 20, 120, '395,290,420,300');
@@ -91,7 +91,7 @@ INSERT INTO `munt` (`id`, `waarde`, `aantal`) VALUES
 (20, 20, 6),
 (50, 50, 10),
 (100, 100, 8),
-(200, 200, 10);
+(200, 200, 12);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
